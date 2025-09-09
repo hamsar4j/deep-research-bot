@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
-deep-research-bot = "main:main"
+deep-research-bot = "deep_research_bot.main:main"
 
 [build-system]
 requires = ["hatchling"]
