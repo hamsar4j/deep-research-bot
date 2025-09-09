@@ -1,6 +1,6 @@
 # Deep Research Bot
 
-An AI-powered research assistant that uses AutoGen agents to automatically research topics, gather information from the web, and generate comprehensive reports.
+A research bot that uses AutoGen agents to automatically research topics, gather information from the web, and generate comprehensive reports.
 
 ## Features
 
