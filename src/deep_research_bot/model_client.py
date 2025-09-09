@@ -5,6 +5,13 @@ from autogen_core.models import ModelFamily
 
 load_dotenv()
 
+try:
+    family = getattr(ModelFamily, settings.model_family)
+except AttributeError:
+    raise ValueError(
+        f"Invalid model_family: {settings.model_family}. Must be a valid ModelFamily enum name."
+    )
+
 client = OpenAIChatCompletionClient(
     model=settings.llm,
     api_key=settings.api_key,
@@ -13,7 +20,7 @@ client = OpenAIChatCompletionClient(
         "vision": True,
         "function_calling": True,
         "json_output": True,
-        "family": ModelFamily.LLAMA_4_SCOUT,
+        "family": family,
         "structured_output": True,
     },
 )
