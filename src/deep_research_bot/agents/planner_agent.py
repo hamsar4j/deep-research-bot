@@ -8,7 +8,7 @@ planner_agent = AssistantAgent(
     name="planner_agent",
     model_client=client,
     system_message=PLANNER_PROMPT,
-    # output_content_type=WebSearchPlan,
+    output_content_type=WebSearchPlan,
     reflect_on_tool_use=True,
     model_client_stream=True,  # Enable streaming tokens from the model client.
 )

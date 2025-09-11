@@ -8,7 +8,7 @@ writer_agent = AssistantAgent(
     name="writer_agent",
     model_client=client,
     system_message=WRITER_PROMPT,
-    # output_content_type=ReportData,
+    output_content_type=ReportData,
     reflect_on_tool_use=True,
     model_client_stream=True,  # Enable streaming tokens from the model client.
 )
