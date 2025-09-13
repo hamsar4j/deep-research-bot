@@ -11,11 +11,12 @@ A research bot that uses AutoGen agents to automatically research topics, gather
 
 ## How It Works
 
-The Deep Research Bot uses three specialized AI agents working in sequence:
+The Deep Research Bot uses four specialized AI agents working in sequence:
 
 1. **Planner Agent**: Analyzes your query and creates a research plan with targeted search terms
 2. **Search Agent**: Executes web searches and extracts relevant information
 3. **Writer Agent**: Synthesizes all findings into a cohesive, well-structured report
+4. **Review Agent**: Critically evaluates the report for accuracy, completeness, sourcing, and clarity, returning structured feedback
 
 ## Prerequisites
 
@@ -46,7 +47,7 @@ Create a `.env` file in the project root with your API credentials:
 OPENAI_API_KEY=your_api_key_here
 LLM=meta-llama/Llama-4-Scout-17B-16E-Instruct
 BASE_URL=https://api.together.xyz/v1
-MODEL_FAMILY=llama_4_scout
+MODEL_FAMILY=LLAMA_4_SCOUT
 ```
 
 ### Environment Variables
@@ -78,13 +79,21 @@ src/deep_research_bot/
 ├── agents/                 # AI agent implementations
 │   ├── planner_agent.py    # Creates research plans
 │   ├── search_agent.py     # Executes web searches
-│   └── writer_agent.py     # Generates reports
+│   ├── writer_agent.py     # Generates reports
+│   └── review_agent.py     # Reviews reports and outputs structured feedback
 ├── config.py              # Configuration management
 ├── model_client.py        # LLM client setup
-├── models.py              # Data models
+├── models.py              # Data models (plans, report data, review feedback)
 ├── prompts.py             # Agent prompt templates
 └── main.py                # Main entry point
 ```
+
+## Review Stage
+
+- The Review Agent outputs structured JSON with an overall rating, strengths, issues with severities, priority actions, risk flags, and a short summary.
+- Termination: The chat stops when either the message cap is reached or a unique token is detected.
+  - The reviewer optionally includes `"approval_token": "__APPROVE__"` in the JSON only when the output is publishable with minimal/no edits (rating >= 4 and no major/critical issues).
+  - Otherwise the field is omitted. The special token triggers the termination condition without breaking the JSON-only contract.
 
 ## Dependencies
 
