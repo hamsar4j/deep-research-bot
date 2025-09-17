@@ -49,6 +49,8 @@ OPENAI_API_KEY=your_api_key_here
 LLM=meta-llama/Llama-4-Scout-17B-16E-Instruct
 BASE_URL=https://api.together.xyz/v1
 MODEL_FAMILY=LLAMA_4_SCOUT
+SEARCH_PROVIDER=tavily
+TAVILY_API_KEY=your_tavily_key_here
 ```
 
 ### Environment Variables
@@ -57,6 +59,12 @@ MODEL_FAMILY=LLAMA_4_SCOUT
 - `LLM`: The model identifier (default: meta-llama/Llama-4-Scout-17B-16E-Instruct)
 - `BASE_URL`: The API endpoint URL (default: <https://api.together.xyz/v1>)
 - `MODEL_FAMILY`: The model family identifier (default: LLAMA_4_SCOUT)
+- `SEARCH_PROVIDER`: Optional. Set to `tavily` (default) or `duckduckgo` to choose the web search adapter.
+- `TAVILY_API_KEY`: Required when `SEARCH_PROVIDER=tavily`; used by the Tavily web search integration.
+
+### Search Providers
+
+By default the bot uses the Tavily API via LangChain. Supply `SEARCH_PROVIDER=tavily` (default) and `TAVILY_API_KEY` to enable it. If you'd prefer a no-key option, set `SEARCH_PROVIDER=duckduckgo` to switch to the DuckDuckGo search tool without changing the agent code.
 
 ## Usage
 
