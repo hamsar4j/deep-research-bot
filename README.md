@@ -42,7 +42,7 @@ The Deep Research Bot uses a short clarification phase followed by four speciali
 
 ## Configuration
 
-Create a `.env` file in the project root with your API credentials:
+Create a `.env` file in the project root with your API credentials. The configuration loader in `src/deep_research_bot/core/config.py` reads these values automatically at runtime:
 
 ```env
 OPENAI_API_KEY=your_api_key_here
@@ -64,7 +64,7 @@ TAVILY_API_KEY=your_tavily_key_here
 
 ### Search Providers
 
-By default the bot uses the Tavily API via LangChain. Supply `SEARCH_PROVIDER=tavily` (default) and `TAVILY_API_KEY` to enable it. If you'd prefer a no-key option, set `SEARCH_PROVIDER=duckduckgo` to switch to the DuckDuckGo search tool without changing the agent code.
+By default the bot uses the Tavily API via LangChain. Supply `SEARCH_PROVIDER=tavily` (default) and `TAVILY_API_KEY` to enable it. If you'd prefer a no-key option, set `SEARCH_PROVIDER=duckduckgo` to switch to the DuckDuckGo search tool without changing the agent code. The shared LLM client glue lives in `src/deep_research_bot/llm/model_client.py`.
 
 ## Usage
 
@@ -91,11 +91,14 @@ src/deep_research_bot/
 │   ├── search_agent.py     # Executes web searches
 │   ├── writer_agent.py     # Generates reports
 │   └── review_agent.py     # Reviews reports and outputs structured feedback
-├── config.py              # Configuration management
-├── model_client.py        # LLM client setup
-├── models.py              # Data models (plans, report data, review feedback)
-├── prompts.py             # Agent prompt templates
-└── main.py                # Main entry point
+├── core/
+│   └── config.py           # Configuration loading and validation
+├── llm/
+│   └── model_client.py     # Shared LLM client glue code
+├── deep_research.py        # Reusable orchestration helpers
+├── models.py               # Data models (plans, report data, review feedback)
+├── prompts.py              # Agent prompt templates
+└── main.py                 # CLI entry point and agent wiring
 ```
 
 ## Review Stage
