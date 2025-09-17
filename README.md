@@ -11,8 +11,9 @@ A research bot that uses AutoGen agents to automatically research topics, gather
 
 ## How It Works
 
-The Deep Research Bot uses four specialized AI agents working in sequence:
+The Deep Research Bot uses a short clarification phase followed by four specialized AI agents:
 
+0. **Clarification (User Proxy + Clarifier Agent)**: Runs as a separate short team to refine your request. Once the clarifier returns a structured `clarified_task`, it automatically becomes the input for the main research flow.
 1. **Planner Agent**: Analyzes your query and creates a research plan with targeted search terms
 2. **Search Agent**: Executes web searches and extracts relevant information
 3. **Writer Agent**: Synthesizes all findings into a cohesive, well-structured report
@@ -77,6 +78,7 @@ deep-research-bot "How is artificial intelligence transforming the healthcare in
 ```md
 src/deep_research_bot/
 ├── agents/                 # AI agent implementations
+│   ├── clarifier_agent.py  # Clarifies the initial task with the user
 │   ├── planner_agent.py    # Creates research plans
 │   ├── search_agent.py     # Executes web searches
 │   ├── writer_agent.py     # Generates reports
@@ -95,11 +97,18 @@ src/deep_research_bot/
   - The reviewer optionally includes `"approval_token": "__APPROVE__"` in the JSON only when the output is publishable with minimal/no edits (rating >= 4 and no major/critical issues).
   - Otherwise the field is omitted. The special token triggers the termination condition without breaking the JSON-only contract.
 
+## Clarification Stage
+
+- The Clarifier Agent asks only necessary questions; answer as needed to resolve ambiguities quickly.
+- Each clarifier reply is structured as a `ClarifierResponse` JSON object that includes a `clarified_task` field.
+- When the agent signals `need_clarification = "__FALSE__"`, the latest `clarified_task` is automatically promoted to the research task.
+- No manual copy/paste step is required—the clarified task flows directly into the planner/search/writer/review team.
+
 ## Dependencies
 
 - [AutoGen AgentChat](https://microsoft.github.io/autogen/): Multi-agent conversation framework
 - [LangChain](https://github.com/langchain-ai/langchain): LLM application framework
-- [DuckDuckGo Search](https://github.com/deedy5/ddgs): Web search integration
+- [Tavily Search](https://docs.tavily.com/): Web search integration via LangChain
 - [Pydantic](https://docs.pydantic.dev/): Data validation and settings management
 
 ## License

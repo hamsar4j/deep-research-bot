@@ -3,7 +3,12 @@ from autogen_agentchat.messages import StructuredMessage
 from autogen_agentchat.agents import UserProxyAgent
 from autogen_agentchat.conditions import MaxMessageTermination, TextMentionTermination
 from autogen_agentchat.ui import Console
-from deep_research_bot.models import WebSearchPlan, ReportData, ReviewFeedback
+from deep_research_bot.models import (
+    WebSearchPlan,
+    ReportData,
+    ReviewFeedback,
+    ClarifierResponse,
+)
 from deep_research_bot.agents import (
     clarifier_agent,
     planner_agent,
@@ -31,18 +36,27 @@ async def run_clarification(initial_task: str) -> str:
     clarification_team = RoundRobinGroupChat(
         [clarifier_agent, user_proxy_agent],
         termination_condition=clarify_termination,
+        custom_message_types=[
+            StructuredMessage[ClarifierResponse],
+        ],
     )
 
-    await Console(
+    clarification_result = await Console(
         clarification_team.run_stream(task=initial_task),
         output_stats=False,
     )
 
-    print(
-        "\nPaste the 'FINAL_TASK:' line if shown above, or enter your final research task. Press Enter to keep the original."
-    )
-    final_task = input("> Final task: ").strip()
-    return final_task if final_task else initial_task
+    clarified_task = initial_task
+    messages = list(getattr(clarification_result, "messages", []) or [])
+    # Walk messages in reverse so we grab the most recent structured response from the clarifier.
+    for message in reversed(messages):
+        if isinstance(message, StructuredMessage) and isinstance(
+            message.content, ClarifierResponse
+        ):
+            clarified_task = message.content.clarified_task
+            break
+
+    return clarified_task
 
 
 async def run_research(task: str) -> None:

@@ -1,4 +1,19 @@
+from typing import Literal
 from pydantic import BaseModel
+
+
+class ClarifierResponse(BaseModel):
+    need_clarification: Literal["__FALSE__", "__TRUE__"]
+    """Whether the agent must ask the user for more information."""
+
+    question: str
+    """Clarifying question to present when more detail is required."""
+
+    verification: str
+    """Acknowledgement that research can begin once requirements are met."""
+
+    clarified_task: str
+    """Concise task statement summarizing the agreed scope."""
 
 
 class WebSearchItem(BaseModel):
