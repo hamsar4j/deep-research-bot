@@ -16,7 +16,7 @@ from deep_research_bot.agents import (
     writer_agent,
     review_agent,
 )
-from deep_research_bot.model_client import client
+from deep_research_bot.llm.model_client import client
 
 
 max_msg_termination = MaxMessageTermination(max_messages=24)
@@ -60,22 +60,24 @@ async def run_clarification(initial_task: str) -> str:
 
 
 async def run_research(task: str) -> None:
-    # Phase 1: Clarify the task in a dedicated team so it terminates once well-structured.
-    clarified_task = await run_clarification(task)
+    try:
+        # Phase 1: Clarify the task in a dedicated team so it terminates once well-structured.
+        clarified_task = await run_clarification(task)
 
-    # Phase 2: Use the clarified task with the main team (planner/search/writer/review).
-    team = RoundRobinGroupChat(
-        [planner_agent, search_agent, writer_agent, review_agent],
-        termination_condition=main_termination,
-        custom_message_types=[
-            StructuredMessage[WebSearchPlan],
-            StructuredMessage[ReportData],
-            StructuredMessage[ReviewFeedback],
-        ],
-    )
-    await Console(
-        team.run_stream(task=clarified_task),
-        output_stats=True,
-    )
-    # Close the connection to the model client.
-    await client.close()
+        # Phase 2: Use the clarified task with the main team (planner/search/writer/review).
+        team = RoundRobinGroupChat(
+            [planner_agent, search_agent, writer_agent, review_agent],
+            termination_condition=main_termination,
+            custom_message_types=[
+                StructuredMessage[WebSearchPlan],
+                StructuredMessage[ReportData],
+                StructuredMessage[ReviewFeedback],
+            ],
+        )
+        await Console(
+            team.run_stream(task=clarified_task),
+            output_stats=True,
+        )
+    finally:
+        # Close the connection to the model client even if the flow fails mid-run.
+        await client.close()

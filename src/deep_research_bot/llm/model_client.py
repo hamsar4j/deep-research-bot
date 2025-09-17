@@ -1,4 +1,4 @@
-from deep_research_bot.config import settings
+from deep_research_bot.core.config import settings
 from dotenv import load_dotenv
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from autogen_core.models import ModelFamily

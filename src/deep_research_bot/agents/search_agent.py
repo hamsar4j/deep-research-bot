@@ -3,15 +3,19 @@ from autogen_ext.tools.langchain import LangChainToolAdapter
 from langchain_tavily import TavilySearch
 from langchain_community.tools import DuckDuckGoSearchResults
 
-from deep_research_bot.config import settings
-from deep_research_bot.model_client import client
+from deep_research_bot.core.config import settings
+from deep_research_bot.llm.model_client import client
 from deep_research_bot.prompts import SEARCH_PROMPT
 
 
 def _build_search_tool() -> LangChainToolAdapter:
-    provider = settings.search_provider
+    provider = settings.search_provider.lower()
 
     if provider == "tavily":
+        if not settings.tavily_api_key:
+            raise RuntimeError(
+                "SEARCH_PROVIDER=tavily requires TAVILY_API_KEY to be configured."
+            )
         return LangChainToolAdapter(TavilySearch(max_results=5))
 
     if provider == "duckduckgo":

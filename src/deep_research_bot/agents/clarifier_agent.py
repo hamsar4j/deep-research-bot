@@ -1,5 +1,5 @@
 from autogen_agentchat.agents import AssistantAgent
-from deep_research_bot.model_client import client
+from deep_research_bot.llm.model_client import client
 from deep_research_bot.models import ClarifierResponse
 from deep_research_bot.prompts import CLARIFIER_PROMPT
 
