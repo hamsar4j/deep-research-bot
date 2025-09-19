@@ -24,7 +24,7 @@ review_approval_termination = TextMentionTermination("__APPROVE__")
 main_termination = max_msg_termination | review_approval_termination
 
 # Separate termination for the clarification phase (user approval)
-clarify_max_msg_termination = MaxMessageTermination(max_messages=8)
+clarify_max_msg_termination = MaxMessageTermination(max_messages=24)
 # Only terminate when agent says __FALSE__ for "need_clarification"
 clarify_token_termination = TextMentionTermination("__FALSE__")
 clarify_termination = clarify_max_msg_termination | clarify_token_termination

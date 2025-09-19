@@ -46,9 +46,9 @@ Create a `.env` file in the project root with your API credentials. The configur
 
 ```env
 OPENAI_API_KEY=your_api_key_here
-LLM=meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8
+LLM=meta-llama/Llama-4-Scout-17B-16E-Instruct
 BASE_URL=https://api.together.xyz/v1
-MODEL_FAMILY=LLAMA_4_MAVERICK
+MODEL_FAMILY=LLAMA_4_SCOUT
 SEARCH_PROVIDER=tavily
 TAVILY_API_KEY=your_tavily_key_here
 ```
@@ -56,9 +56,9 @@ TAVILY_API_KEY=your_tavily_key_here
 ### Environment Variables
 
 - `OPENAI_API_KEY`: Your API key for the LLM provider
-- `LLM`: The model identifier (default: `meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8`)
+- `LLM`: The model identifier (default: `meta-llama/Llama-4-Scout-17B-16E-Instruct`)
 - `BASE_URL`: The API endpoint URL (default: <https://api.together.xyz/v1>)
-- `MODEL_FAMILY`: The model family enum name consumed by AutoGen (`LLAMA_4_MAVERICK` by default)
+- `MODEL_FAMILY`: The model family enum name consumed by AutoGen (`LLAMA_4_SCOUT` by default)
 - `SEARCH_PROVIDER`: Optional. Set to `tavily` (default) or `duckduckgo` to choose the web search adapter.
 - `TAVILY_API_KEY`: Required when `SEARCH_PROVIDER=tavily`; used by the Tavily web search integration.
 
