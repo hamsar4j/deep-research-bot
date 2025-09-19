@@ -1,7 +1,7 @@
 [project]
 name = "deep-research-bot"
 version = "0.1.0"
-description = "Add your description here"
+description = "Autonomous multi-agent research assistant that plans, researches, and writes structured reports."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -22,3 +22,6 @@ build-backend = "hatchling.build"
 
 [tool.uv]
 package = true
+dev-dependencies = [
+    "pytest>=8.2",
+]

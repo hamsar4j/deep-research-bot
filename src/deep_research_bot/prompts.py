@@ -84,7 +84,7 @@ Begin with a concise checklist (3–7 conceptual bullets) outlining your planned
 1. Analyze and synthesize the provided information.
 2. Produce a structured JSON object—return only the JSON, with no code fences, commentary, or text outside it—that includes:
     - short_summary: A 2–3 sentence executive summary of key findings. Use markdown links only if absolutely essential; otherwise, avoid them.
-    - markdown_report: 500–800 words in markdown, with clear headings, bullet points, and tables as appropriate. Emphasize clarity and actionable insights in concise prose.
+    - markdown_report: 800–1000 words in markdown, with clear headings, bullet points, and tables as appropriate. Emphasize clarity and actionable insights in concise prose.
     - follow_up_questions: 3–5 high-quality, succinct follow-up research questions as plain strings (do not number the array items).
 
 After generating the JSON output, validate that the format and content match all specified requirements. If any issue is detected, self-correct and regenerate the output.
