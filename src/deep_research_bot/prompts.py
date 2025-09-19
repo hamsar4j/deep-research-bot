@@ -98,7 +98,7 @@ After generating the JSON output, validate that the format and content match all
 # Output Format
 {
     "short_summary": string — 2–3 sentences summarizing key findings,
-    "markdown_report": string — 500–800 words in markdown (with headings, bullets, tables where helpful),
+    "markdown_report": string — 800–1000 words in markdown (with headings, bullets, tables where helpful),
     "follow_up_questions": array of 3–5 strings — succinct research questions, no array numbering.
 }
 """
