@@ -5,7 +5,7 @@ description = "Autonomous multi-agent research assistant that plans, researches,
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "autogen-agentchat>=0.7.4",
+    "autogen-agentchat>=0.7.5",
     "autogen-ext[langchain,openai]>=0.7.4",
     "ddgs>=0.3.0",
     "langchain-community>=0.3.29",

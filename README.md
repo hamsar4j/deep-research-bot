@@ -37,6 +37,7 @@ The Deep Research Bot uses a short clarification phase followed by four speciali
 2. Install dependencies using uv:
 
    ```bash
+   uv sync
    uv pip install -e .
    ```
 
