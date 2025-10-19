@@ -1,6 +1,6 @@
 # Deep Research Bot
 
-A research bot that uses AutoGen agents to automatically research topics, gather information from the web, and generate comprehensive reports.
+A research bot that uses AutoGen agents, powered by OpenAI's GPT models, to automatically research topics, gather information from the web, and generate comprehensive reports.
 
 ## Features
 
@@ -23,7 +23,7 @@ The Deep Research Bot uses a short clarification phase followed by four speciali
 
 - Python 3.12 or higher
 - [uv](https://github.com/astral-sh/uv) package manager
-- API key from a supported LLM provider (Together AI, OpenAI, etc.)
+- OpenAI API key with access to the desired GPT model tier
 
 ## Installation
 
@@ -47,9 +47,7 @@ Create a `.env` file in the project root with your API credentials. The configur
 
 ```env
 OPENAI_API_KEY=your_api_key_here
-LLM=meta-llama/Llama-4-Scout-17B-16E-Instruct
-BASE_URL=https://api.together.xyz/v1
-MODEL_FAMILY=LLAMA_4_SCOUT
+LLM=gpt-5-mini-2025-08-07
 SEARCH_PROVIDER=tavily
 TAVILY_API_KEY=your_tavily_key_here
 ```
@@ -57,9 +55,7 @@ TAVILY_API_KEY=your_tavily_key_here
 ### Environment Variables
 
 - `OPENAI_API_KEY`: Your API key for the LLM provider
-- `LLM`: The model identifier (default: `meta-llama/Llama-4-Scout-17B-16E-Instruct`)
-- `BASE_URL`: The API endpoint URL (default: <https://api.together.xyz/v1>)
-- `MODEL_FAMILY`: The model family enum name consumed by AutoGen (`LLAMA_4_SCOUT` by default)
+- `LLM`: The OpenAI model identifier (default: `gpt-5-mini-2025-08-07`)
 - `SEARCH_PROVIDER`: Optional. Set to `tavily` (default) or `duckduckgo` to choose the web search adapter.
 - `TAVILY_API_KEY`: Required when `SEARCH_PROVIDER=tavily`; used by the Tavily web search integration.
 
